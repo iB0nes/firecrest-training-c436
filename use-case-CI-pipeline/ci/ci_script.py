@@ -51,8 +51,9 @@ with open("submission_script.sh", "w") as fp:
     fp.write(script_content)
 
 # Check the status of the system and print it in the console
-status = client.service(system_name)['status']
-print("STATUS: "+status)
+system = client.service(system_name)
+print("STATUS: "+str(system))
+status = ""
 # If the status is available submit and poll every 30 secs until
 # it reaches a final state
 if status == "available":
