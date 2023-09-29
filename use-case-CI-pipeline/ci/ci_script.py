@@ -19,7 +19,7 @@ final_slurm_states = {
 }
 
 # If you are working on the CI-pipeline use case remove the line bellow:
-exit(0)
+#exit(0)
 
 # Setup variables of the client as secrets,
 # no need to change anything here
@@ -27,7 +27,9 @@ CLIENT_ID = os.environ.get("FIRECREST_CLIENT_ID")
 CLIENT_SECRET = os.environ.get("FIRECREST_CLIENT_SECRET")
 FIRECREST_URL = os.environ.get("FIRECREST_URL")
 AUTH_TOKEN_URL = os.environ.get("AUTH_TOKEN_URL")
-
+print("CLIENT ID: "+CLIENT_ID)
+print("FIRECREST URL: "+FIRECREST_URL)
+print("AUTH URL: "+AUTH_TOKEN_URL)
 # Setup an argument parser for the script,
 # no need to change anything here
 parser = argparse.ArgumentParser()
@@ -41,15 +43,16 @@ ref = args.branch
 print(f"Will try to run the ci in system {system_name} on branch {ref}")
 
 # Setup up a firecrest client
-keycloak = None
-client = None
+keycloak = fc.ClientCredentialsAuth(CLIENT_ID, CLIENT_SECRET, AUTH_TOKEN_URL)
+client = fc.Firecrest(FIRECREST_URL, authorization=keycloak)
 
 script_content = util.create_batch_script(repo=args.repo, constraint='gpu', num_nodes=2, account=args.account, custom_modules=['cray-python'], branch=ref)
 with open("submission_script.sh", "w") as fp:
     fp.write(script_content)
 
 # Check the status of the system and print it in the console
-
+status = client.service(system_name)['status']
+print("STATUS: "+status)
 # If the status is available submit and poll every 30 secs until
 # it reaches a final state
 if status == "available":
