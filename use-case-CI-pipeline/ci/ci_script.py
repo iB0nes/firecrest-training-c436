@@ -27,9 +27,9 @@ CLIENT_ID = os.environ.get("FIRECREST_CLIENT_ID")
 CLIENT_SECRET = os.environ.get("FIRECREST_CLIENT_SECRET")
 FIRECREST_URL = os.environ.get("FIRECREST_URL")
 AUTH_TOKEN_URL = os.environ.get("AUTH_TOKEN_URL")
-print("CLIENT ID: "+CLIENT_ID)
-print("FIRECREST URL: "+FIRECREST_URL)
-print("AUTH URL: "+AUTH_TOKEN_URL)
+print("CLIENT ID: "+len(CLIENT_ID))
+print("FIRECREST URL: "+len(FIRECREST_URL))
+print("AUTH URL: "+len(AUTH_TOKEN_URL))
 # Setup an argument parser for the script,
 # no need to change anything here
 parser = argparse.ArgumentParser()
