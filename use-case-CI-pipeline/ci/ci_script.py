@@ -50,12 +50,11 @@ client = fc.Firecrest(FIRECREST_URL, authorization=keycloak)
 script_content = util.create_batch_script(repo=args.repo, constraint='gpu', num_nodes=2, account=args.account, custom_modules=['cray-python'], branch=ref)
 with open("submission_script.sh", "w") as fp:
     fp.write(script_content)
-
-print(client.whoami())
+print(f"USERNAME {client.whoami()}")
 
 # Check the status of the system and print it in the console
-system = client.service(system_name)
-print("STATUS: "+str(system))
+# system = client.service(system_name)
+# print("STATUS: "+str(system))
 status = ""
 # If the status is available submit and poll every 30 secs until
 # it reaches a final state
