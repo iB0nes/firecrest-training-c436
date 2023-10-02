@@ -32,7 +32,7 @@ print("CLIENT SECRET: "+str(len(CLIENT_SECRET)))
 print("FIRECREST URL: "+str(len(FIRECREST_URL)))
 print("AUTH URL: "+str(len(AUTH_TOKEN_URL)))
 
-OIDC_AUTH_REALM = firecrest-clients
+OIDC_AUTH_REALM = "firecrest-clients"
 OIDC_AUTH_WEB_ISSUER_URL = f"{AUTH_TOKEN_URL}/auth/realms/{OIDC_AUTH_REALM}"
 OIDC_AUTH_TOKEN_URL = f"{OIDC_AUTH_WEB_ISSUER_URL}/protocol/openid-connect/token"
 
