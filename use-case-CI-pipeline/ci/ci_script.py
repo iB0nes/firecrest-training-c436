@@ -51,6 +51,8 @@ script_content = util.create_batch_script(repo=args.repo, constraint='gpu', num_
 with open("submission_script.sh", "w") as fp:
     fp.write(script_content)
 print(f"USERNAME {client.whoami()}")
+test = client.services()
+print(test)
 
 # Check the status of the system and print it in the console
 # system = client.service(system_name)
@@ -72,5 +74,5 @@ if status == "available":
     # util.check_output(stdout_content)
 
 else:
-    print("System {system_name} is not available")
+    print(f"System {system_name} is not available")
     exit(1)
