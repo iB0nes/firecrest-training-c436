@@ -31,6 +31,11 @@ print("CLIENT ID: "+str(len(CLIENT_ID)))
 print("CLIENT SECRET: "+str(len(CLIENT_SECRET)))
 print("FIRECREST URL: "+str(len(FIRECREST_URL)))
 print("AUTH URL: "+str(len(AUTH_TOKEN_URL)))
+
+OIDC_AUTH_REALM = firecrest-clients
+OIDC_AUTH_WEB_ISSUER_URL = f"{AUTH_TOKEN_URL}/auth/realms/{OIDC_AUTH_REALM}"
+OIDC_AUTH_TOKEN_URL = f"{OIDC_AUTH_WEB_ISSUER_URL}/protocol/openid-connect/token"
+
 # Setup an argument parser for the script,
 # no need to change anything here
 parser = argparse.ArgumentParser()
@@ -44,7 +49,7 @@ ref = args.branch
 print(f"Will try to run the ci in system {system_name} on branch {ref}")
 
 # Setup up a firecrest client
-keycloak = fc.ClientCredentialsAuth(CLIENT_ID, CLIENT_SECRET, AUTH_TOKEN_URL)
+keycloak = fc.ClientCredentialsAuth(CLIENT_ID, CLIENT_SECRET, OIDC_AUTH_TOKEN_URL)
 client = fc.Firecrest(FIRECREST_URL, authorization=keycloak)
 
 script_content = util.create_batch_script(repo=args.repo, constraint='gpu', num_nodes=2, account=args.account, custom_modules=['cray-python'], branch=ref)
